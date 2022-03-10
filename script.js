@@ -1,9 +1,11 @@
 'use strict';
 
 //set up the player scores as zero initially.
-let playerZeroScore = 0;
-let playerOneScore = 0;
+
 let currentScore = 0;
+let activePlayer = 0;
+const playerScores = [0,0];
+
 const diceElement = document.querySelector('.dice');
 const playerZeroScoreElement = document.querySelector('#score--0');
 const playerOneScoreElement = document.querySelector('#score--1');
@@ -12,12 +14,12 @@ const btnNewElement = document.querySelector('.btn--new');
 const btnRollElement = document.querySelector('.btn--roll');
 const btnHoldElement = document.querySelector('.btn--hold');
 
-const currentZeroElement = document.getElementById('current--0');
-const currentOneElement = document.getElementById('current--1');
+const current0Element = document.getElementById('current--0');
+const current1Element = document.getElementById('current--1');
 
 const startGame = ()=>{
-    playerZeroScore = 0;
-    playerOneScore = 0;
+    //playerZeroScore = 0;
+    //playerOneScore = 0;
     playerZeroScoreElement.textContent = 0;
     playerOneScoreElement.textContent = 0;
     diceElement.classList.add('hidden');
@@ -39,9 +41,12 @@ btnRollElement.addEventListener('click', ()=>{
     //check if a 1 is rolled since that will zero the points of whichever player is active - player 0 or player 1;
     if(randomNumber !== 1){
         currentScore += randomNumber;
-        currentZeroElement.textContent = currentScore;
+        document.getElementById(`current--${activePlayer}`).textContent = currentScore;
     }else{
-
+        document.getElementById(`current--${activePlayer}`).textContent = 0;
+        activePlayer = activePlayer === 0 ? 1:0;
+        currentScore = 0;
+        
     }
     
 })
